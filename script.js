@@ -19,7 +19,12 @@ class Player {
             width: 32,
             height: 48
         }
-    }
+        }
+
+        draw() {
+        ctx.fillRect(this.position.x, this.position.y, this.dimensions.width, this.dimensions.height)
+        }
+    
 }
 
 
@@ -27,6 +32,7 @@ function gameLoop() {
     requestAnimationFrame(gameLoop)
     ctx.clearRect(0, 0, 320, 180)
     ctx.fillRect(0, 0, 320, 180)
+    Player.draw()
 }
 
 gameLoop()
