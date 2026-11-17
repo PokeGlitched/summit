@@ -28,11 +28,15 @@ class Player {
         }
 
         this.onFloor = false
+        this.coyote = {
+            time: 100,
+            timer: 0
+        }
         }
 
         jump() {
             window.addEventListener("keydown", (event) => {
-            if (this.onFloor) {
+            if (this.coyote.timer > 0) {
                 if (!event.repeat) {
                 if (inputs.jump.includes(event.key)) {
                 this.velocity.y = -10
@@ -54,9 +58,8 @@ class Player {
         ctx.fillRect(this.position.x, this.position.y, this.dimensions.width, this.dimensions.height)
         }
         
-        update() {
-        
-
+        update(deltaTime) {
+              
         this.velocity.y += this.physics.gravity
         if (this.velocity.y > this.physics.terminalVelo) {
             this.velocity.y = this.physics.terminalVelo
@@ -67,8 +70,11 @@ class Player {
             this.velocity.y = 0
             this.position.y = 160 - this.dimensions.height
             this.onFloor = true
+            this.coyote.timer = 100
         } else {
             this.onFloor = false
+            this.coyote.timer -= deltaTime
+            Math.max([this.coyote.timer, 0])
         }
 
         this.position.x += this.velocity.x
@@ -82,17 +88,23 @@ class Player {
 
 
 const player_body = new Player
+const lastTime = 0
 player_body.jump()
 
-function gameLoop() {
+function gameLoop(timestamp) {
+    
+    const deltaTime = Math.max(timestamp - lastTime)
+    lastTime = timestamp
+
     requestAnimationFrame(gameLoop)
+
     ctx.clearRect(0, 0, 320, 180)
     ctx.fillStyle = 'white'
     ctx.fillRect(0, 0, 320, 180)
     
     ctx.fillStyle = 'black'
     ctx.fillRect(0, 160, 320, 20)
-    player_body.update()
+    player_body.update(deltaTime)
     player_body.draw()
 }
 
