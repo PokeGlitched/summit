@@ -42,6 +42,7 @@ const player_body = new Player
 function gameLoop() {
     requestAnimationFrame(gameLoop)
     ctx.clearRect(0, 0, 320, 180)
+    ctx.fillStyle = 'white'
     ctx.fillRect(0, 0, 320, 180)
     player_body.update()
     player_body.draw()
