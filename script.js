@@ -19,14 +19,20 @@ class Player {
             width: 32,
             height: 48
         }
+
+        this.gravity = 0.5
         }
 
+
         draw() {
-        ctx.fillRect(this.position.x, this.position.y, this.dimensions.width, this.dimensions.height)
+        this.fillStyle = 'red'
+        this.fillRect(this.position.x, this.position.y, this.dimensions.width, this.dimensions.height)
         }
         
         update() {
         this.position.x += this.velocity.x
+
+        this.velocity += this.gravity
         this.position.y += this.velocity.y
         }
 }
