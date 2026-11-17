@@ -104,6 +104,7 @@ class Platform {
     
 }
 
+const platform_1 = new Platform(50, 120, 80, 10)
 const player_body = new Player
 let lastTime = 0
 
@@ -124,6 +125,7 @@ function gameLoop(timestamp) {
     ctx.fillRect(0, 160, 320, 20)
     player_body.update(deltaTime)
     player_body.draw()
+    platform_1.draw()
 }
 
 gameLoop()
