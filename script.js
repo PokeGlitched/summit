@@ -24,7 +24,11 @@ class Player {
         draw() {
         ctx.fillRect(this.position.x, this.position.y, this.dimensions.width, this.dimensions.height)
         }
-    
+        
+        update() {
+        this.position.x += this.velocity.x
+        this.position.y += this.velocity.y
+        }
 }
 
 const player_body = new Player
@@ -33,6 +37,7 @@ function gameLoop() {
     requestAnimationFrame(gameLoop)
     ctx.clearRect(0, 0, 320, 180)
     ctx.fillRect(0, 0, 320, 180)
+    player_body.update()
     player_body.draw()
 }
 
