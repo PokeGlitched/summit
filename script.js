@@ -26,18 +26,20 @@ class Player {
             gravity: 0.5,
             terminalVelo: 8
         }
+
+        this.onFloor = false
         }
 
         jump() {
             window.addEventListener("keydown", (event) => {
                 if (inputs.jump.includes(event.key)) {
-                this.velocity.y += -10
+                this.velocity.y = -10
                 }
             })
 
             window.addEventListener("keyup", (event) => {
                 if (inputs.jump.includes(event.key)) {
-                    if (this.velocity.y > 0) {
+                    if (this.velocity.y < 0) {
                 this.velocity.y *= 0.5
                 }
             }
@@ -50,6 +52,7 @@ class Player {
         }
         
         update() {
+        
 
         this.velocity.y += this.physics.gravity
         if (this.velocity.y > this.physics.terminalVelo) {
@@ -60,11 +63,16 @@ class Player {
         if (this.position.y + this.dimensions.height >= 160 && this.velocity.y > 0) {
             this.velocity.y = 0
             this.position.y = 160 - this.dimensions.height
+            this.onFloor = true
+        } else {
+            this.onFloor = false
         }
 
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
         }
+
+
 
         
 }
