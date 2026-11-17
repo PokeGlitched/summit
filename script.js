@@ -74,7 +74,7 @@ class Player {
         } else {
             this.onFloor = false
             this.coyote.timer -= deltaTime
-            this.coyote.timer = Math.max([this.coyote.timer, 0])
+            this.coyote.timer = Math.max(this.coyote.timer, 0)
         }
 
         this.position.x += this.velocity.x
@@ -86,6 +86,18 @@ class Player {
         
 }
 
+class Platform {
+    
+    constructor(this_x, this_y, this_width, this_height) {
+        this.fillRectReqs = {
+        x: this_x,
+        y: this_y,
+        width: this_width,
+        height: this_height
+    }
+    }
+    
+}
 
 const player_body = new Player
 let lastTime = 0
