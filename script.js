@@ -21,10 +21,10 @@ class Player {
         }
 
         this.physics = {
-            gravity = 0.5,
-            terminalVelo = 8
+            gravity: 0.5,
+            terminalVelo: 8
         }
-
+        }
 
         draw() {
         ctx.fillStyle = 'red'
@@ -41,6 +41,7 @@ class Player {
         this.position.y += this.velocity.y
         }
 }
+
 
 const player_body = new Player
 
