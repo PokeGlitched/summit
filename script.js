@@ -54,6 +54,7 @@ class Player {
 
 
 const player_body = new Player
+player_body.jump()
 
 function gameLoop() {
     requestAnimationFrame(gameLoop)
