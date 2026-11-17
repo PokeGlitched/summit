@@ -35,8 +35,8 @@ class Player {
         this.position.x += this.velocity.x
 
         this.velocity.y += this.physics.gravity
-        if (this.velocity.y > 8) {
-            this.velocity.y = 8
+        if (this.velocity.y > this.physics.terminalVelo) {
+            this.velocity.y = this.physics.terminalVelo
         }
         this.position.y += this.velocity.y
         }
