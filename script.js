@@ -74,7 +74,7 @@ class Player {
         } else {
             this.onFloor = false
             this.coyote.timer -= deltaTime
-            Math.max([this.coyote.timer, 0])
+            this.coyote.timer = Math.max([this.coyote.timer, 0])
         }
 
         this.position.x += this.velocity.x
@@ -88,12 +88,13 @@ class Player {
 
 
 const player_body = new Player
-const lastTime = 0
+let lastTime = 0
+
 player_body.jump()
 
 function gameLoop(timestamp) {
     
-    const deltaTime = Math.max(timestamp - lastTime)
+    const deltaTime = timestamp - lastTime
     lastTime = timestamp
 
     requestAnimationFrame(gameLoop)
