@@ -3,7 +3,7 @@ ctx = canvas.getContext("2d")
 
 ctx.fillRect(0, 0, 320, 180)
 
-inputs = {jump: " ", jump: "W", jump: "w", jump: "ArrowUp"}
+inputs = {jump: [" ", "W", "w", "ArrowUp"]}
 
 class Player {
     constructor(){
@@ -29,7 +29,7 @@ class Player {
         }
 
         jump() {
-            window.addEventListener(this.jump, () => {
+            window.addEventListener("keydown", inputs[jump], () => {
                 this.velocity += -10
             })
         }
