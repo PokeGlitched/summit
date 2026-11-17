@@ -20,7 +20,9 @@ class Player {
             height: 20
         }
 
-        this.gravity = 0.5
+        this.physics = {
+            gravity = 0.5,
+            terminalVelo = 8
         }
 
 
@@ -32,7 +34,10 @@ class Player {
         update() {
         this.position.x += this.velocity.x
 
-        this.velocity.y += this.gravity
+        this.velocity.y += this.physics.gravity
+        if (this.velocity.y > 8) {
+            this.velocity.y = 8
+        }
         this.position.y += this.velocity.y
         }
 }
