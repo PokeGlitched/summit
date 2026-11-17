@@ -61,9 +61,9 @@ function gameLoop() {
     ctx.clearRect(0, 0, 320, 180)
     ctx.fillStyle = 'white'
     ctx.fillRect(0, 0, 320, 180)
-    ctx.fillRect(0, 160, 320, 20)
+    
     ctx.fillStyle = 'black'
-    ctx.clearRect(0, 0, 320, 180)
+    ctx.fillRect(0, 160, 320, 20)
     player_body.update()
     player_body.draw()
 }
