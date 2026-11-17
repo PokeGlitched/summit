@@ -33,11 +33,11 @@ class Player {
         jump() {
             window.addEventListener("keydown", (event) => {
             if (this.onFloor) {
-                
+                if (!event.repeat) {
                 if (inputs.jump.includes(event.key)) {
                 this.velocity.y = -10
                 }
-            }
+            }}
             })
 
             window.addEventListener("keyup", (event) => {
