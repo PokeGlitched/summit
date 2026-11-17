@@ -16,8 +16,8 @@ class Player {
         }
 
         this.dimensions = {
-            width: 32,
-            height: 48
+            width: 12,
+            height: 20
         }
 
         this.gravity = 0.5
