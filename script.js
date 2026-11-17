@@ -42,14 +42,23 @@ class Player {
         }
         
         update() {
-        this.position.x += this.velocity.x
 
         this.velocity.y += this.physics.gravity
         if (this.velocity.y > this.physics.terminalVelo) {
             this.velocity.y = this.physics.terminalVelo
         }
+        
+        
+        if (this.position.y + this.dimensions.height >= 160 && this.velocity.y > 0) {
+            this.velocity.y = 0
+            this.position.y = 160 - this.dimensions.height
+        }
+
+        this.position.x += this.velocity.x
         this.position.y += this.velocity.y
         }
+
+        
 }
 
 
