@@ -32,7 +32,7 @@ class Player {
 
         jump() {
             window.addEventListener("keydown", (event) => {
-            if (this.onFloor = true) {
+            if (this.onFloor) {
                 
                 if (inputs.jump.includes(event.key)) {
                 this.velocity.y = -10
