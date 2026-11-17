@@ -3,6 +3,8 @@ ctx = canvas.getContext("2d")
 
 ctx.fillRect(0, 0, 320, 180)
 
+inputs = {jump: " ", jump: "W", jump: "w", jump: "ArrowUp"}
+
 class Player {
     constructor(){
         this.velocity = {
@@ -24,6 +26,12 @@ class Player {
             gravity: 0.5,
             terminalVelo: 8
         }
+        }
+
+        jump() {
+            window.addEventListener(this.jump, () => {
+                this.velocity += -10
+            })
         }
 
         draw() {
