@@ -96,6 +96,11 @@ class Platform {
         height: this_height
     }
     }
+
+    draw() {
+        ctx.fillStyle = 'gray'
+        ctx.fillRect(this.fillRectReqs.x, this.fillRectReqs.y, this.fillRectReqs.width, this.fillRectReqs.height)
+    }
     
 }
 
