@@ -34,6 +34,14 @@ class Player {
                 this.velocity.y += -10
                 }
             })
+
+            window.addEventListener("keyup", (event) => {
+                if (inputs.jump.includes(event.key)) {
+                    if (this.velocity.y > 0) {
+                this.velocity.y *= 0.5
+                }
+            }
+            })
         }
 
         draw() {
