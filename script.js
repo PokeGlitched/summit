@@ -90,7 +90,7 @@ class Player {
         move() {
             window.addEventListener("keydown", (event) => {
                 if (inputs.left.includes(event.key)) {
-                this.velocity.x = 2
+                this.velocity.x = -2
                 }
             })
 
@@ -102,7 +102,7 @@ class Player {
 
             window.addEventListener("keydown", (event) => {
                 if (inputs.right.includes(event.key)) {
-                this.velocity.x = -2
+                this.velocity.x = 2
                 }
             })
 
