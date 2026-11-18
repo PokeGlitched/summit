@@ -30,7 +30,7 @@ class Platform {
     
 }
 
-const Platforms = [
+const platforms = [
     new Platform(0, 140, 80, 10),
     new Platform(100, 110, 70, 10),
     new Platform(200, 80, 70, 10)
