@@ -93,6 +93,11 @@ class Player {
         }
         
         update(deltaTime) {
+        this.edges.top = this.position.y
+        this.edges.bottom = this.position.y + this.dimensions.height
+        this.edges.left = this.position.x
+        this.edges.right = this.position.x + this.dimensions.width
+        
         this.velocity.y += this.physics.gravity
         if (this.velocity.y > this.physics.terminalVelo) {
             this.velocity.y = this.physics.terminalVelo
@@ -116,12 +121,7 @@ class Player {
         }
 
         this.position.x += this.velocity.x
-        this.position.y += this.velocity.y
-
-        this.edges.top = this.position.y
-        this.edges.bottom = this.position.y + this.dimensions.height
-        this.edges.left = this.position.x
-        this.edges.right = this.position.x + this.dimensions.width
+        this.position.y += this.velocity.y    
         }
 
 
