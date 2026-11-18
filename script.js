@@ -30,7 +30,7 @@ class Platform {
     
 }
 
-const platform_1 = new Platform(50, 120, 80, 10)
+const platform_1 = new Platform(0, 140, 80, 10)
 
 class Player {
     constructor(){
@@ -108,7 +108,7 @@ class Player {
 
             window.addEventListener("keyup", (event) => {
                 if (inputs.right.includes(event.key)) {
-                    this.velocity.x *= 0.5
+                    this.velocity.x = 0
                     }
             })
         }
@@ -125,6 +125,7 @@ class Player {
         this.edges.right = this.position.x + this.dimensions.width
 
         const beginningBottom = this.edges.bottom
+        const nextBottom = this.edges.bottom + this.velocity.y
         
         this.velocity.y += this.physics.gravity
         if (this.velocity.y > this.physics.terminalVelo) {
@@ -133,7 +134,7 @@ class Player {
         
 
         if (this.velocity.y > 0 &&
-            this.edges.bottom >= platform_1.edges.top && 
+            nextBottom >= platform_1.edges.top && 
             this.edges.right >= platform_1.edges.left &&
             this.edges.left <= platform_1.edges.right &&
             this.edges.top <= platform_1.edges.bottom &&
