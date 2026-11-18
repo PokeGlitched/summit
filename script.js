@@ -30,7 +30,11 @@ class Platform {
     
 }
 
-const platform_1 = new Platform(0, 140, 80, 10)
+const Platforms = [
+    new Platform(0, 140, 80, 10),
+    new Platform(100, 110, 70, 10),
+    new Platform(200, 80, 70, 10)
+]
 
 class Player {
     constructor(){
@@ -139,16 +143,16 @@ class Player {
             this.velocity.y = this.physics.terminalVelo
         }
         
-
-        if (this.velocity.y > 0 &&
-            nextBottom >= platform_1.edges.top && 
-            this.edges.right >= platform_1.edges.left &&
-            this.edges.left <= platform_1.edges.right &&
-            this.edges.top <= platform_1.edges.bottom &&
-            beginningBottom <= platform_1.edges.top) {
+        platforms.forEach(platform =>{
+            if (this.velocity.y > 0 &&
+            nextBottom >= platform.edges.top && 
+            this.edges.right >= platform.edges.left &&
+            this.edges.left <= platform.edges.right &&
+            this.edges.top <= platform.edges.bottom &&
+            beginningBottom <= platform.edges.top) {
                 
             this.velocity.y = 0
-            this.position.y = platform_1.fillRectReqs.y - this.dimensions.height
+            this.position.y = platform.fillRectReqs.y - this.dimensions.height
             this.onFloor = true
             this.coyote.timer = 100
         } else {
@@ -156,6 +160,8 @@ class Player {
             this.coyote.timer -= deltaTime
             this.coyote.timer = Math.max(this.coyote.timer, 0)
         }
+        })
+        
 
         if (this.movement.left) {
                 this.velocity.x = -2
@@ -195,7 +201,7 @@ function gameLoop(timestamp) {
     ctx.fillRect(0, 160, 320, 20)
     player_body.update(deltaTime)
     player_body.draw()
-    platform_1.draw()
+    platforms.forEach(platform => platform.draw())
 }
 
 gameLoop()
