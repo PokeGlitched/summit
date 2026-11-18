@@ -5,7 +5,6 @@ ctx.fillRect(0, 0, 320, 180)
 
 inputs = {jump: [" ", "W", "w", "ArrowUp"]}
 
-const platform_1 = new Platform(50, 120, 80, 10)
 
 class Platform {
     
@@ -30,6 +29,8 @@ class Platform {
     }
     
 }
+
+const platform_1 = new Platform(50, 120, 80, 10)
 
 class Player {
     constructor(){
@@ -116,6 +117,11 @@ class Player {
 
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
+
+        this.edges.top = this.position.y
+        this.edges.bottom = this.position.y + this.dimensions.height
+        this.edges.left = this.position.x
+        this.edges.right = this.position.x + this.dimensions.width
         }
 
 
