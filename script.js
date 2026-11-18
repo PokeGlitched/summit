@@ -90,7 +90,7 @@ class Player {
             window.addEventListener("keyup", (event) => {
                 if (inputs.jump.includes(event.key)) {
                     if (this.velocity.y < 0) {
-                this.velocity.y = 0
+                this.velocity.y *= 0.5
                 }
             }
             })
@@ -147,6 +147,14 @@ class Player {
         this.coyote.timer -= deltaTime
         this.coyote.timer = Math.max(this.coyote.timer, 0)
         
+        if (this.movement.left) {
+                this.velocity.x = -2
+            } else if (this.movement.right) {
+                this.velocity.x = 2
+            } else {
+                this.velocity.x = 0
+            }
+
         platforms.forEach(platform =>{
             if (this.velocity.y > 0 &&
             nextBottom >= platform.edges.top && 
@@ -159,18 +167,15 @@ class Player {
             this.position.y = platform.fillRectReqs.y - this.dimensions.height
             this.onFloor = true
             this.coyote.timer = 100
-        }
-            
-        })
-        
-
-        if (this.movement.left) {
-                this.velocity.x = -2
-            } else if (this.movement.right) {
-                this.velocity.x = 2
-            } else {
-                this.velocity.x = 0
             }
+
+            if (this.edges.right + this.velocity.x >= platform.edges.left &&
+                this.edges.left + this.velocity.x <= platform.edges.right &&
+                this.edges.bottom > platform.edges.top &&
+                this.edges.top < platform.edges.bottom) {
+                    this.velocity.x = 0
+                }
+        })
 
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y    
