@@ -66,9 +66,13 @@ class Player {
         }
         
         
-        if (this.position.y + this.dimensions.height >= 160 && this.velocity.y > 0) {
+        if (this.position.y + this.dimensions.height >= platform_1.fillRectReqs.y && 
+            this.velocity.y > 0 &&
+            this.position.x >= platform_1.fillRectReqs.x &&
+            this.position.x + this.dimensions.width <= platform_1.fillRectReqs.x + platform_1.fillRectReqs.width) {
+                
             this.velocity.y = 0
-            this.position.y = 160 - this.dimensions.height
+            this.position.y = platform_1.fillRectReqs.y - this.dimensions.height
             this.onFloor = true
             this.coyote.timer = 100
         } else {
