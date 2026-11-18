@@ -3,7 +3,7 @@ ctx = canvas.getContext("2d")
 
 ctx.fillRect(0, 0, 320, 180)
 
-inputs = {jump: [" ", "W", "w", "ArrowUp"]}
+inputs = {jump: [" ", "W", "w", "ArrowUp"], left: ["a", "A", "ArrowLeft"], right: ["d", "D", "ArrowRight"]}
 
 
 class Platform {
@@ -97,6 +97,8 @@ class Player {
         this.edges.bottom = this.position.y + this.dimensions.height
         this.edges.left = this.position.x
         this.edges.right = this.position.x + this.dimensions.width
+
+        const beginningBottom = this.edges.bottom
         
         this.velocity.y += this.physics.gravity
         if (this.velocity.y > this.physics.terminalVelo) {
@@ -108,7 +110,8 @@ class Player {
             this.edges.bottom >= platform_1.edges.top && 
             this.edges.right >= platform_1.edges.left &&
             this.edges.left <= platform_1.edges.right &&
-            this.edges.top <= platform_1.edges.bottom) {
+            this.edges.top <= platform_1.edges.bottom &&
+            beginningBottom <= platform_1.edges.top) {
                 
             this.velocity.y = 0
             this.position.y = platform_1.fillRectReqs.y - this.dimensions.height
