@@ -143,6 +143,10 @@ class Player {
             this.velocity.y = this.physics.terminalVelo
         }
         
+        this.onFloor = false
+        this.coyote.timer -= deltaTime
+        this.coyote.timer = Math.max(this.coyote.timer, 0)
+        
         platforms.forEach(platform =>{
             if (this.velocity.y > 0 &&
             nextBottom >= platform.edges.top && 
@@ -155,11 +159,8 @@ class Player {
             this.position.y = platform.fillRectReqs.y - this.dimensions.height
             this.onFloor = true
             this.coyote.timer = 100
-        } else {
-            this.onFloor = false
-            this.coyote.timer -= deltaTime
-            this.coyote.timer = Math.max(this.coyote.timer, 0)
         }
+            
         })
         
 
