@@ -77,7 +77,7 @@ class Player {
         }
         }
 
-        jump() {
+    jump() {
             window.addEventListener("keydown", (event) => {
             if (this.coyote.timer > 0) {
                 if (!event.repeat) {
@@ -96,7 +96,7 @@ class Player {
             })
         }
 
-        move() {
+    move() {
             window.addEventListener("keydown", (event) => {
                 if (inputs.left.includes(event.key)) {
                     this.velocity.x = -2
@@ -124,12 +124,12 @@ class Player {
             })
         }
 
-        draw() {
+    draw() {
         ctx.fillStyle = 'red'
         ctx.fillRect(this.position.x, this.position.y, this.dimensions.width, this.dimensions.height)
         }
         
-        update(deltaTime) {
+    update(deltaTime) {
         this.edges.top = this.position.y
         this.edges.bottom = this.position.y + this.dimensions.height
         this.edges.left = this.position.x
