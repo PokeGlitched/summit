@@ -66,6 +66,11 @@ class Player {
             top: this.position.y,
             bottom: this.position.y + this.dimensions.height,
         }
+
+        this.movement = {
+            left: false,
+            right: false
+        }
         }
 
         jump() {
@@ -90,26 +95,28 @@ class Player {
         move() {
             window.addEventListener("keydown", (event) => {
                 if (inputs.left.includes(event.key)) {
-                this.velocity.x = -2
+                    this.velocity.x = -2
+                    this.movement.left = true
                 }
             })
 
             window.addEventListener("keyup", (event) => {
                 if (inputs.left.includes(event.key)) {
-                    this.velocity.x = 0
-                    }
+                    this.movement.left = false
+                }
             })
 
             window.addEventListener("keydown", (event) => {
                 if (inputs.right.includes(event.key)) {
-                this.velocity.x = 2
+                    this.velocity.x = 2
+                    this.movement.right = true
                 }
             })
 
             window.addEventListener("keyup", (event) => {
                 if (inputs.right.includes(event.key)) {
-                    this.velocity.x = 0
-                    }
+                    this.movement.right = false
+                }
             })
         }
 
@@ -149,6 +156,14 @@ class Player {
             this.coyote.timer -= deltaTime
             this.coyote.timer = Math.max(this.coyote.timer, 0)
         }
+
+        if (this.movement.left) {
+                this.velocity.x = -2
+            } else if (this.movement.right) {
+                this.velocity.x = 2
+            } else {
+                this.velocity.x = 0
+            }
 
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y    
