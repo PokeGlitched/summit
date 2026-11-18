@@ -5,6 +5,32 @@ ctx.fillRect(0, 0, 320, 180)
 
 inputs = {jump: [" ", "W", "w", "ArrowUp"]}
 
+const platform_1 = new Platform(50, 120, 80, 10)
+
+class Platform {
+    
+    constructor(this_x, this_y, this_width, this_height) {
+        this.fillRectReqs = {
+        x: this_x,
+        y: this_y,
+        width: this_width,
+        height: this_height
+    }
+        this.edges = {
+            left: this.fillRectReqs.x,
+            right: this.fillRectReqs.x + this.fillRectReqs.width,
+            top: this.fillRectReqs.y,
+            bottom: this.fillRectReqs.y + this.fillRectReqs.height,
+    }
+    }
+
+    draw() {
+        ctx.fillStyle = 'gray'
+        ctx.fillRect(this.fillRectReqs.x, this.fillRectReqs.y, this.fillRectReqs.width, this.fillRectReqs.height)
+    }
+    
+}
+
 class Player {
     constructor(){
         this.velocity = {
@@ -31,6 +57,13 @@ class Player {
         this.coyote = {
             time: 100,
             timer: 0
+        }
+
+        this.edges = {
+            left: this.position.x,
+            right: this.position.x + this.dimensions.width,
+            top: this.position.y,
+            bottom: this.position.y + this.dimensions.height,
         }
         }
 
@@ -59,17 +92,17 @@ class Player {
         }
         
         update(deltaTime) {
-              
         this.velocity.y += this.physics.gravity
         if (this.velocity.y > this.physics.terminalVelo) {
             this.velocity.y = this.physics.terminalVelo
         }
         
         
-        if (this.position.y + this.dimensions.height >= platform_1.fillRectReqs.y && 
-            this.velocity.y > 0 &&
-            this.position.x >= platform_1.fillRectReqs.x &&
-            this.position.x + this.dimensions.width <= platform_1.fillRectReqs.x + platform_1.fillRectReqs.width) {
+        if (this.velocity.y > 0 &&
+            this.edges.bottom >= platform_1.edges.top && 
+            this.edges.right >= platform_1.edges.left &&
+            this.edges.left <= platform_1.edges.right &&
+            this.edges.top <= platform_1.edges.bottom) {
                 
             this.velocity.y = 0
             this.position.y = platform_1.fillRectReqs.y - this.dimensions.height
@@ -90,25 +123,6 @@ class Player {
         
 }
 
-class Platform {
-    
-    constructor(this_x, this_y, this_width, this_height) {
-        this.fillRectReqs = {
-        x: this_x,
-        y: this_y,
-        width: this_width,
-        height: this_height
-    }
-    }
-
-    draw() {
-        ctx.fillStyle = 'gray'
-        ctx.fillRect(this.fillRectReqs.x, this.fillRectReqs.y, this.fillRectReqs.width, this.fillRectReqs.height)
-    }
-    
-}
-
-const platform_1 = new Platform(50, 120, 80, 10)
 const player_body = new Player
 let lastTime = 0
 
