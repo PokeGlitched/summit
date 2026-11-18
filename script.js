@@ -87,6 +87,32 @@ class Player {
             })
         }
 
+        move() {
+            window.addEventListener("keydown", (event) => {
+                if (inputs.left.includes(event.key)) {
+                this.velocity.x = -2
+                }
+            })
+
+            window.addEventListener("keyup", (event) => {
+                if (inputs.left.includes(event.key)) {
+                    this.velocity.x *= 0.5
+                    }
+            })
+
+            window.addEventListener("keydown", (event) => {
+                if (inputs.right.includes(event.key)) {
+                this.velocity.x = -2
+                }
+            })
+
+            window.addEventListener("keyup", (event) => {
+                if (inputs.right.includes(event.key)) {
+                    this.velocity.x *= 0.5
+                    }
+            })
+        }
+
         draw() {
         ctx.fillStyle = 'red'
         ctx.fillRect(this.position.x, this.position.y, this.dimensions.width, this.dimensions.height)
@@ -105,7 +131,7 @@ class Player {
             this.velocity.y = this.physics.terminalVelo
         }
         
-        
+
         if (this.velocity.y > 0 &&
             this.edges.bottom >= platform_1.edges.top && 
             this.edges.right >= platform_1.edges.left &&
