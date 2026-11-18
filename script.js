@@ -81,7 +81,7 @@ class Player {
             window.addEventListener("keyup", (event) => {
                 if (inputs.jump.includes(event.key)) {
                     if (this.velocity.y < 0) {
-                this.velocity.y *= 0.5
+                this.velocity.y = 0
                 }
             }
             })
@@ -90,13 +90,13 @@ class Player {
         move() {
             window.addEventListener("keydown", (event) => {
                 if (inputs.left.includes(event.key)) {
-                this.velocity.x = -2
+                this.velocity.x = 2
                 }
             })
 
             window.addEventListener("keyup", (event) => {
                 if (inputs.left.includes(event.key)) {
-                    this.velocity.x *= 0.5
+                    this.velocity.x = 0
                     }
             })
 
@@ -162,6 +162,7 @@ const player_body = new Player
 let lastTime = 0
 
 player_body.jump()
+player_body.move()
 
 function gameLoop(timestamp) {
     
