@@ -1,7 +1,7 @@
 canvas = document.getElementById("game")
 ctx = canvas.getContext("2d")
 
-ctx.fillRect(0, 0, 320, 180)
+ctx.fillRect(0, 0, 320, 480)
 
 inputs = {jump: [" ", "W", "w", "ArrowUp"], left: ["a", "A", "ArrowLeft"], right: ["d", "D", "ArrowRight"]}
 
@@ -31,9 +31,12 @@ class Platform {
 }
 
 const platforms = [
-    new Platform(0, 140, 80, 10),
-    new Platform(100, 110, 70, 10),
-    new Platform(200, 80, 70, 10)
+    new Platform(0, 140, 50, 10),
+    new Platform(50, 125, 50, 10),
+    new Platform(100, 110, 50, 10),
+    new Platform(150, 95, 50, 10),
+    new Platform(200, 80, 50, 10),
+    new Platform(250, 65, 50, 10)
 ]
 
 class Player {
@@ -177,6 +180,11 @@ class Player {
                 }
         })
 
+
+            if (this.edges.bottom >= canvas.height) {
+                this.position.x = 0
+                this.position.y = 0
+            }
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y    
         }
@@ -201,10 +209,8 @@ function gameLoop(timestamp) {
 
     ctx.clearRect(0, 0, 320, 180)
     ctx.fillStyle = 'white'
-    ctx.fillRect(0, 0, 320, 180)
-    
-    ctx.fillStyle = 'black'
-    ctx.fillRect(0, 160, 320, 20)
+    ctx.fillRect(0, 0, 320, 480)
+
     player_body.update(deltaTime)
     player_body.draw()
     platforms.forEach(platform => platform.draw())
