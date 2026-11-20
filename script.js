@@ -34,7 +34,7 @@ const platforms = []
 
 
 for (let i = 0; i < 10; i++) {
-        platforms.push(new Platform(480 - i * 10, 320 - i * 10, 90, 10))
+        platforms.push(new Platform(0 + (i * 15), 400 - (i * 40), 20, 10))
     }   
 
 class Player {
@@ -137,7 +137,9 @@ class Player {
         this.edges.right = this.position.x + this.dimensions.width
 
         const beginningBottom = this.edges.bottom
+        const beginningTop = this.edges.top
         const nextBottom = this.edges.bottom + this.velocity.y
+        const nextTop = this.edges.top + this.velocity.y;
         
         this.velocity.y += this.physics.gravity
         if (this.velocity.y > this.physics.terminalVelo) {
@@ -175,6 +177,16 @@ class Player {
                 this.edges.bottom > platform.edges.top &&
                 this.edges.top < platform.edges.bottom) {
                     this.velocity.x = 0
+                }
+            
+            if (this.velocity.y < 0 &&
+                beginningTop >= platform.edges.bottom &&
+                nextTop <= platform.edges.bottom &&
+                this.edges.right >= platform.edges.left &&
+                this.edges.left <= platform.edges.right) {
+
+                this.velocity.y = 0;
+                this.position.y = platform.edges.bottom;
                 }
         })
 
