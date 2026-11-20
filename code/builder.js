@@ -1,2 +1,2 @@
-canvas = document.getElementById("builder")
-ctx = canvas.getContext("2d")
+builderCanvas = document.getElementById("builder")
+builderCtx = canvas.getContext("2d")
