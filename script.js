@@ -31,12 +31,12 @@ class Platform {
 }
 
 const platforms = [
-    new Platform(0, 140, 50, 10),
-    new Platform(50, 125, 50, 10),
-    new Platform(100, 110, 50, 10),
-    new Platform(150, 95, 50, 10),
-    new Platform(200, 80, 50, 10),
-    new Platform(250, 65, 50, 10)
+    new Platform(0, 340, 50, 10),
+    new Platform(50, 325, 50, 10),
+    new Platform(100, 310, 50, 10),
+    new Platform(150, 295, 50, 10),
+    new Platform(200, 280, 50, 10),
+    new Platform(250, 265, 50, 10)
 ]
 
 class Player {
