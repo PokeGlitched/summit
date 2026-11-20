@@ -30,14 +30,12 @@ class Platform {
     
 }
 
-const platforms = [
-    new Platform(0, 340, 50, 10),
-    new Platform(50, 325, 50, 10),
-    new Platform(100, 310, 50, 10),
-    new Platform(150, 295, 50, 10),
-    new Platform(200, 280, 50, 10),
-    new Platform(250, 265, 50, 10)
-]
+const platforms = []
+
+
+for (let i = 0; i < 10; i++) {
+        platforms.push(new Platform(480 - i * 10, 320 - i * 10, 90, 10))
+    }   
 
 class Player {
     constructor(){
