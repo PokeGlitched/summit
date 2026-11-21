@@ -32,7 +32,7 @@ class Platform {
 
 const platformData = [
     [0, 400, 20, 10],
-    [30, 360, 20, 10],
+    [100, 300, 40, 16],
     [60, 320, 20, 10]
 ]
 
@@ -51,12 +51,12 @@ class Player {
         }
 
         this.dimensions = {
-            width: 12,
-            height: 20
+            width: 8,
+            height: 8
         }
 
         this.physics = {
-            gravity: 0.5,
+            gravity: 0.76,
             terminalVelo: 8
         }
 
