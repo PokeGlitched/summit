@@ -40,6 +40,14 @@ builderCanvas.addEventListener("mousedown", (event) => {
     
 });
 
+function drawPlatforms() {
+    builderCtx.fillStyle = "grey"
+    tiles.forEach(tile => {
+        builderCtx.fillRect(tile.x, tile.y, tile.width, tile.height)
+    })
+    
+}
+
 builderCanvas.addEventListener("mousemove", (event) => {
     if (!clicking) return;
     
@@ -47,17 +55,12 @@ builderCanvas.addEventListener("mousemove", (event) => {
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
     const endxcoord = (Math.floor(x/gridSize)) * gridSize;
-    const endycoord = (Math.floor(y/gridSize)) * gridSize;
 
     builderCtx.clearRect(0, 0, builderCanvas.width, builderCanvas.height)
     drawGrid()
-
-
-    builderCtx.fillStyle = "grey"
-    tiles.forEach(tile => {
-        builderCtx.fillRect(tile.x, tile.y, tile.width, tile.height)
-    })
+    drawPlatforms()
     
+    builderCtx.fillStyle = "lightgrey"
     preview = {
         x: Math.min(endxcoord, startOClick.x),
         y: startOClick.y,
