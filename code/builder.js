@@ -37,7 +37,13 @@ builderCanvas.addEventListener("mousedown", (event) => {
 
     clicking = true
     builderCtx.fillRect(startOClick.x, startOClick.y, gridSize, gridSize)
-    
+
+    preview = {
+        x: 0,
+        y: 0,
+        width: 0,
+        height: gridSize
+    }
 });
 
 function drawPlatforms() {
@@ -75,9 +81,14 @@ builderCanvas.addEventListener("mousemove", (event) => {
 builderCanvas.addEventListener("mouseup", () => {
     if (!clicking) return;
 
-    if (preview.width >= gridSize) {
-        tiles.push({...preview});
+    if (preview.width === 0) {
+        preview.x = startOClick.x,
+        preview.y = startOClick.y,
+        preview.width = gridSize
     }
+
+    tiles.push({...preview});
+    drawPlatforms()
 
     clicking = false;
 });
