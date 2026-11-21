@@ -35,7 +35,12 @@ builderCanvas.addEventListener("mousedown", (event) => {
     const clickX = Math.floor(x / gridSize) * gridSize;
     const clickY = Math.floor(y / gridSize) * gridSize;
 
-
+    const tileIndex = tiles.findIndex(tile =>
+        clickX >= tile.x &&
+        clickX <= tile.x + tile.width **
+        clickY >= tile.y &&
+        clickY <= tile.y + tile.height
+    );
 
 
     
