@@ -30,13 +30,11 @@ class Platform {
     
 }
 
-const platformData = [
-    [0, 400, 20, 10],
-    [100, 300, 40, 16],
-    [60, 320, 20, 10]
-]
+const platforms = window.tiles.map(tile => 
+    new Platform(tile.x, tile.y, tile.width, tile.height)
+) 
 
-const platforms = platformData.map(data => new Platform(...data)) 
+console.log(window.tiles)
 
 class Player {
     constructor(){
