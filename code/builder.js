@@ -32,6 +32,13 @@ builderCanvas.addEventListener("mousedown", (event) => {
     const rect = builderCanvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
+    const clickX = Math.floor(x / gridSize) * gridSize;
+    const clickY = Math.floor(y / gridSize) * gridSize;
+
+
+
+
+    
     startOClick.x = (Math.floor(x/gridSize)) * gridSize
     startOClick.y = (Math.floor(y/gridSize)) * gridSize
 
