@@ -91,4 +91,4 @@ builderCanvas.addEventListener("mouseup", () => {
     drawPlatforms()
 
     clicking = false;
-});
+}); 

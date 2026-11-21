@@ -30,12 +30,13 @@ class Platform {
     
 }
 
-const platforms = []
+const platformData = [
+    [0, 400, 20, 10],
+    [30, 360, 20, 10],
+    [60, 320, 20, 10]
+]
 
-
-for (let i = 0; i < 10; i++) {
-        platforms.push(new Platform(0 + (i * 15), 400 - (i * 40), 20, 10))
-    }   
+const platforms = platformData.map(data => new Platform(...data)) 
 
 class Player {
     constructor(){
