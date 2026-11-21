@@ -30,9 +30,16 @@ class Platform {
     
 }
 
-const platforms = window.tiles.map(tile => 
+let platforms = window.tiles.map(tile => 
     new Platform(tile.x, tile.y, tile.width, tile.height)
 ) 
+
+
+window.updateGamePlatforms = function () {
+    platforms = window.tiles.map(tile => 
+    new Platform(tile.x, tile.y, tile.width, tile.height)
+    )
+}
 
 console.log(window.tiles)
 
