@@ -92,5 +92,5 @@ builderCanvas.addEventListener("mouseup", () => {
 
     clicking = false;
 
-    window.updateGamePlatforms
+    window.updateGamePlatforms()
 }); 
