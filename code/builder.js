@@ -69,9 +69,12 @@ builderCanvas.addEventListener("mousemove", (event) => {
 
 });
 
-builderCanvas.addEventListener("mouseup", (event) => {
+builderCanvas.addEventListener("mouseup", () => {
     if (!clicking) return;
 
-    tiles.push({...preview});
-    clicking = false
-})
+    if (preview.width >= gridSize) {
+        tiles.push({...preview});
+    }
+
+    clicking = false;
+});
