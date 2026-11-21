@@ -3,8 +3,10 @@ builderCtx = builderCanvas.getContext("2d")
 
 
 let clicking = false;
-let startOClick = {x: 0, y: 0};
 const gridSize = 16;
+let preview = {x: 0, y: 0, width: 0, height: gridSize};
+let startOClick = {x: 0, y: 0};
+
 
 function drawGrid () {
     for (let i = 0; i < builderCanvas.width; i += gridSize) {
@@ -34,7 +36,7 @@ builderCanvas.addEventListener("mousedown", (event) => {
     startOClick.y = (Math.floor(y/gridSize)) * gridSize
 
     clicking = true
-
+    builderCtx.fillRect(startOClick.x, startOClick.y, gridSize, gridSize)
     
 });
 
@@ -49,14 +51,27 @@ builderCanvas.addEventListener("mousemove", (event) => {
 
     builderCtx.clearRect(0, 0, builderCanvas.width, builderCanvas.height)
     drawGrid()
-    
-    tiles.forEach(tile => {
-        builderCtx.fillRect(tile.x, tile.y, gridSize, gridSize)
-    })
 
-    const preview = {
-        width: endxcoord - startOClick.x,
-        length: endycoord - startOClick.y
+
+    builderCtx.fillStyle = "grey"
+    tiles.forEach(tile => {
+        builderCtx.fillRect(tile.x, tile.y, tile.width, tile.height)
+    })
+    
+    preview = {
+        x: Math.min(endxcoord, startOClick.x),
+        y: startOClick.y,
+        width: Math.abs(endxcoord - startOClick.x),
+        height: gridSize
     }
+
+    builderCtx.fillRect(preview.x, preview.y, preview.width, preview.height)
+
 });
 
+builderCanvas.addEventListener("mouseup", (event) => {
+    if (!clicking) return;
+
+    tiles.push({...preview});
+    clicking = false
+})
