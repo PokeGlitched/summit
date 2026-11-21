@@ -34,19 +34,15 @@ builderCanvas.addEventListener("mousedown", (event) => {
     const y = event.clientY - rect.top;
     const clickX = Math.floor(x / gridSize) * gridSize;
     const clickY = Math.floor(y / gridSize) * gridSize;
-
-    console.log("Clicked:", clickX, clickY);
-    console.log("Tiles:", tiles);
-
     const tileIndex = tiles.findIndex(tile =>
         clickX >= tile.x &&
-        clickX <= tile.x + tile.width **
+        clickX < tile.x + tile.width &&
         clickY >= tile.y &&
-        clickY <= tile.y + tile.height
+        clickY < tile.y + tile.height
     );
 
     if (tileIndex !== -1) {
-        tiles.splice(tileIndex, 1);
+        tiles.splice(tileIndex, 1)
         builderCtx.clearRect(0, 0, builderCanvas.width, builderCanvas.height)
         drawGrid()
         drawPlatforms()
@@ -56,9 +52,7 @@ builderCanvas.addEventListener("mousedown", (event) => {
 
     startOClick.x = clickX
     startOClick.y = clickY
-
     clicking = true
-    builderCtx.fillRect(startOClick.x, startOClick.y, gridSize, gridSize)
 
     preview = {
         x: 0,
