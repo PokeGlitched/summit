@@ -6,7 +6,7 @@ let clicking = false;
 const gridSize = 16;
 let preview = {x: 0, y: 0, width: 0, height: gridSize};
 let startOClick = {x: 0, y: 0};
-
+let placeMode = document.getElementById("mode")
 
 function drawGrid () {
     for (let i = 0; i < builderCanvas.width; i += gridSize) {
@@ -27,6 +27,7 @@ function drawGrid () {
 drawGrid()
 
 window.tiles = []
+
 window.spawnPos = {
     "x": 0,
     "y": 0
