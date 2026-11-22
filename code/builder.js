@@ -38,6 +38,13 @@ window.spawnPos = {
     "y": 0
 }
 
+window.endingPs = {
+    "x": 0,
+    "y": 0,
+    "width": 16,
+    "height": 16
+}
+
 builderCanvas.addEventListener("mousedown", (event) => {
     const rect = builderCanvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
@@ -45,12 +52,13 @@ builderCanvas.addEventListener("mousedown", (event) => {
     const clickX = Math.floor(x / gridSize) * gridSize;
     const clickY = Math.floor(y / gridSize) * gridSize;
     if (currentTool === "platform") {
+    
     const tileIndex = tiles.findIndex(tile =>
         clickX >= tile.x &&
         clickX < tile.x + tile.width &&
         clickY >= tile.y &&
         clickY < tile.y + tile.height
-    );
+        );
 
     if (tileIndex !== -1) {
         tiles.splice(tileIndex, 1)
@@ -71,6 +79,8 @@ builderCanvas.addEventListener("mousedown", (event) => {
         width: 0,
         height: gridSize
     }
+    
+
     } else if (currentTool === "spawnPos") {
         const oldSpawnPos = {
             "x": window.spawnPos.x,
@@ -84,8 +94,23 @@ builderCanvas.addEventListener("mousedown", (event) => {
             drawGrid()
             drawPlatforms()
         }
-        builderCtx.fillStyle = "lightblue"
+        builderCtx.fillStyle = "royalblue"
         builderCtx.fillRect(window.spawnPos.x, window.spawnPos.y, 8, 8)
+    } else if (currentTool === "endingPs") {
+        const oldEndPos = {
+            "x": window.endingPs.x,
+            "y": window.endingPs.y
+        }
+        window.endingPs.x = clickX
+        window.endingPs.y = clickY
+        
+        if (window.endingPs) {
+            builderCtx.clearRect(oldEndPos.x, oldEndPos.y, 16, 16)
+            drawGrid()
+            drawPlatforms()
+        }
+        builderCtx.fillStyle = "darkseagreen"
+        builderCtx.fillRect(window.endingPs.x, window.endingPs.y, 16, 16)
     }
 });
 
@@ -94,32 +119,33 @@ function drawPlatforms() {
     tiles.forEach(tile => {
         builderCtx.fillRect(tile.x, tile.y, tile.width, tile.height)
     })
-    builderCtx.fillStyle = "lightblue"
+    builderCtx.fillStyle = "royalblue"
     builderCtx.fillRect(window.spawnPos.x, window.spawnPos.y, 8, 8)
 }
 
 builderCanvas.addEventListener("mousemove", (event) => {
-    if (!clicking) return;
-    
-    const rect = builderCanvas.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    const endxcoord = (Math.floor(x/gridSize)) * gridSize;
+    if (currentTool === "platform") {
+        if (!clicking) return;
+        
+        const rect = builderCanvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        const endxcoord = (Math.floor(x/gridSize)) * gridSize;
 
-    builderCtx.clearRect(0, 0, builderCanvas.width, builderCanvas.height)
-    drawGrid()
-    drawPlatforms()
-    
-    builderCtx.fillStyle = "lightgrey"
-    preview = {
-        x: Math.min(endxcoord, startOClick.x),
-        y: startOClick.y,
-        width: Math.abs(endxcoord - startOClick.x),
-        height: gridSize
+        builderCtx.clearRect(0, 0, builderCanvas.width, builderCanvas.height)
+        drawGrid()
+        drawPlatforms()
+        
+        builderCtx.fillStyle = "lightgrey"
+        preview = {
+            x: Math.min(endxcoord, startOClick.x),
+            y: startOClick.y,
+            width: Math.abs(endxcoord - startOClick.x),
+            height: gridSize
+        }
+
+        builderCtx.fillRect(preview.x, preview.y, preview.width, preview.height)
     }
-
-    builderCtx.fillRect(preview.x, preview.y, preview.width, preview.height)
-
 });
 
 builderCanvas.addEventListener("mouseup", () => {
