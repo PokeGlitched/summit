@@ -4,7 +4,7 @@ ctx = canvas.getContext("2d")
 ctx.fillRect(0, 0, 320, 480)
 
 inputs = {jump: [" ", "W", "w", "ArrowUp"], left: ["a", "A", "ArrowLeft"], right: ["d", "D", "ArrowRight"]}
-
+let levelNum = 1
 
 class Platform {
     
@@ -40,6 +40,17 @@ window.updateGamePlatforms = function () {
     new Platform(tile.x, tile.y, tile.width, tile.height)
     )
 }
+
+fetch("levels/level1.json")
+    .then(response => response.json())
+    .then(levelData => {
+        console.log("LEVEL LOADED:", levelData)
+        const loadedPlats = levelData.platforms.map(tile => new Platform(tile.x, tile.y, tile.width, tile.height))
+        platforms = loadedPlats
+    })
+    .catch(error => {
+        console.error("LOAD ERROR:", error)
+    })
 
 console.log(window.tiles)
 
