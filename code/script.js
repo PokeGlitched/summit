@@ -235,9 +235,12 @@ class Player {
         })
 
 
-            if (this.edges.bottom >= canvas.height) {
-                this.position.x = 0
-                this.position.y = 0
+            if (this.edges.bottom >= canvas.height ||
+                this.edges.right <= 0 ||
+                this.edges.left >= canvas.width
+            ) {
+                this.position.x = window.startPos.x
+                this.position.y = window.startPos.y
             }
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y    
