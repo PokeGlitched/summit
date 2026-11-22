@@ -47,10 +47,16 @@ fetch("levels/level1.json")
         console.log("LEVEL LOADED:", levelData)
         const loadedPlats = levelData.platforms.map(tile => new Platform(tile.x, tile.y, tile.width, tile.height))
         platforms = loadedPlats
+        window.startPos = {
+            "x": levelData.start.x,
+            "y": levelData.start.y
+        }
+        const player_body = new Player
     })
     .catch(error => {
         console.error("LOAD ERROR:", error)
     })
+    
 
 console.log(window.tiles)
 
@@ -62,8 +68,8 @@ class Player {
         }
 
         this.position = {
-            x: 0,
-            y: 0
+            x: window.startPos.x,
+            y: window.startPos.y
         }
 
         this.dimensions = {
@@ -221,7 +227,7 @@ class Player {
         
 }
 
-const player_body = new Player
+
 let lastTime = 0
 
 player_body.jump()
