@@ -3,6 +3,7 @@ ctx = canvas.getContext("2d")
 
 ctx.fillRect(0, 0, 320, 480)
 
+let player_body = null
 inputs = {jump: [" ", "W", "w", "ArrowUp"], left: ["a", "A", "ArrowLeft"], right: ["d", "D", "ArrowRight"]}
 let levelNum = 1
 
@@ -51,7 +52,27 @@ fetch("levels/level1.json")
             "x": levelData.start.x,
             "y": levelData.start.y
         }
-        const player_body = new Player
+        player_body = new Player
+        player_body.jump()
+        player_body.move()
+        let lastTime = 0
+
+        function gameLoop(timestamp) {
+            
+            const deltaTime = timestamp - lastTime
+            lastTime = timestamp
+
+            requestAnimationFrame(gameLoop)
+
+            ctx.clearRect(0, 0, 320, 480)
+            ctx.fillStyle = 'white'
+            ctx.fillRect(0, 0, 320, 480)
+
+            player_body.update(deltaTime)
+            player_body.draw()
+            platforms.forEach(platform => platform.draw())
+        }
+        gameLoop()
     })
     .catch(error => {
         console.error("LOAD ERROR:", error)
@@ -228,26 +249,4 @@ class Player {
 }
 
 
-let lastTime = 0
-
-player_body.jump()
-player_body.move()
-
-function gameLoop(timestamp) {
-    
-    const deltaTime = timestamp - lastTime
-    lastTime = timestamp
-
-    requestAnimationFrame(gameLoop)
-
-    ctx.clearRect(0, 0, 320, 180)
-    ctx.fillStyle = 'white'
-    ctx.fillRect(0, 0, 320, 480)
-
-    player_body.update(deltaTime)
-    player_body.draw()
-    platforms.forEach(platform => platform.draw())
-}
-
-gameLoop()
 
