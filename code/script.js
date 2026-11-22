@@ -49,8 +49,8 @@ fetch("levels/level1.json")
         const loadedPlats = levelData.platforms.map(tile => new Platform(tile.x, tile.y, tile.width, tile.height))
         platforms = loadedPlats
         window.spawnPos = {
-            "x": levelData.start.x,
-            "y": levelData.start.y
+            "x": levelData.spawn.x,
+            "y": levelData.spawn.y
         }
         player_body = new Player
         player_body.jump()
