@@ -148,6 +148,7 @@ lvlInput.addEventListener("change", () => {
 
             tiles.splice(0, tiles.length, ...levelData.platforms)
 
+            builderCtx.clearRect(0, 0, builderCanvas.width, builderCanvas.height)
             drawGrid()
             drawPlatforms()
             window.updateGamePlatforms()
