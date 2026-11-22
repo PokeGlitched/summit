@@ -119,6 +119,8 @@ class Player {
             left: false,
             right: false
         }
+
+        this.win = false
         }
 
     jump() {
@@ -232,11 +234,19 @@ class Player {
                 this.position.y = platform.edges.bottom;
                 }
         })
+        console.log(this.edges, window.endingPs, this.win, gridSize)
+        if (this.edges.right >= window.endingPs.x  &&
+            this.edges.left <= window.endingPs.x + (gridSize - 2) &&
+            this.edges.top <= window.endingPs.y + (gridSize - 2) &&
+            this.edges.bottom >= window.endingPs.y) {
+                if (!this.win) {
+                    console.log("LEVEL COMPLETE")
+                    this.win = true
+                }
 
-
-            if (this.edges.bottom >= canvas.height ||
-                this.edges.right <= 0 ||
-                this.edges.left >= canvas.width
+        if (this.edges.bottom >= canvas.height ||
+            this.edges.right <= 0 ||
+            this.edges.left >= canvas.width
             ) {
                 this.position.x = window.spawnPos.x
                 this.position.y = window.spawnPos.y
@@ -249,6 +259,4 @@ class Player {
 
         
 }
-
-
-
+}
