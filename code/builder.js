@@ -86,8 +86,8 @@ builderCanvas.addEventListener("mousedown", (event) => {
             "x": window.spawnPos.x,
             "y": window.spawnPos.y
         }
-        window.spawnPos.x = clickX
-        window.spawnPos.y = clickY
+        window.spawnPos.x = clickX + 4
+        window.spawnPos.y = clickY + 4
         
         if (window.spawnPos) {
             builderCtx.clearRect(oldSpawnPos.x, oldSpawnPos.y, 8, 8)
@@ -106,11 +106,11 @@ builderCanvas.addEventListener("mousedown", (event) => {
         
         if (window.endingPs) {
             builderCtx.clearRect(oldEndPos.x, oldEndPos.y, 16, 16)
-            drawGrid()
-            drawPlatforms()
         }
         builderCtx.fillStyle = "darkseagreen"
-        builderCtx.fillRect(window.endingPs.x, window.endingPs.y, 16, 16)
+        builderCtx.fillRect(window.endingPs.x + 1, window.endingPs.y + 1, gridSize - 2, gridSize - 2)
+        drawGrid()
+        drawPlatforms()
     }
 });
 
@@ -121,6 +121,8 @@ function drawPlatforms() {
     })
     builderCtx.fillStyle = "royalblue"
     builderCtx.fillRect(window.spawnPos.x, window.spawnPos.y, 8, 8)
+    builderCtx.fillStyle = "darkseagreen"
+    builderCtx.fillRect(window.endingPs.x + 1, window.endingPs.y + 1, gridSize - 2, gridSize - 2)
 }
 
 builderCanvas.addEventListener("mousemove", (event) => {
