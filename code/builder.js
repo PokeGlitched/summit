@@ -44,6 +44,7 @@ builderCanvas.addEventListener("mousedown", (event) => {
     const y = event.clientY - rect.top;
     const clickX = Math.floor(x / gridSize) * gridSize;
     const clickY = Math.floor(y / gridSize) * gridSize;
+    if (currentTool === "platform") {
     const tileIndex = tiles.findIndex(tile =>
         clickX >= tile.x &&
         clickX < tile.x + tile.width &&
@@ -70,6 +71,22 @@ builderCanvas.addEventListener("mousedown", (event) => {
         width: 0,
         height: gridSize
     }
+    } else if (currentTool === "spawnPos") {
+        const oldSpawnPos = {
+            "x": window.spawnPos.x,
+            "y": window.spawnPos.y
+        }
+        window.spawnPos.x = clickX
+        window.spawnPos.y = clickY
+        
+        if (window.spawnPos) {
+            builderCtx.clearRect(oldSpawnPos.x, oldSpawnPos.y, 8, 8)
+            drawGrid()
+            drawPlatforms()
+        }
+        builderCtx.fillStyle = "lightblue"
+        builderCtx.fillRect(window.spawnPos.x, window.spawnPos.y, 8, 8)
+    }
 });
 
 function drawPlatforms() {
@@ -77,7 +94,8 @@ function drawPlatforms() {
     tiles.forEach(tile => {
         builderCtx.fillRect(tile.x, tile.y, tile.width, tile.height)
     })
-    
+    builderCtx.fillStyle = "lightblue"
+    builderCtx.fillRect(window.spawnPos.x, window.spawnPos.y, 8, 8)
 }
 
 builderCanvas.addEventListener("mousemove", (event) => {
