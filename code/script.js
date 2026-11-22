@@ -48,7 +48,7 @@ fetch("levels/level1.json")
         console.log("LEVEL LOADED:", levelData)
         const loadedPlats = levelData.platforms.map(tile => new Platform(tile.x, tile.y, tile.width, tile.height))
         platforms = loadedPlats
-        window.startPos = {
+        window.spawnPos = {
             "x": levelData.start.x,
             "y": levelData.start.y
         }
@@ -89,8 +89,8 @@ class Player {
         }
 
         this.position = {
-            x: window.startPos.x,
-            y: window.startPos.y
+            x: window.spawnPos.x,
+            y: window.spawnPos.y
         }
 
         this.dimensions = {
@@ -239,8 +239,8 @@ class Player {
                 this.edges.right <= 0 ||
                 this.edges.left >= canvas.width
             ) {
-                this.position.x = window.startPos.x
-                this.position.y = window.startPos.y
+                this.position.x = window.spawnPos.x
+                this.position.y = window.spawnPos.y
             }
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y    

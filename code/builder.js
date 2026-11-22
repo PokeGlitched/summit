@@ -27,6 +27,10 @@ function drawGrid () {
 drawGrid()
 
 window.tiles = []
+window.spawnPos = {
+    "x": 0,
+    "y": 0
+}
 
 builderCanvas.addEventListener("mousedown", (event) => {
     const rect = builderCanvas.getBoundingClientRect();
