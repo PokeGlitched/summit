@@ -140,6 +140,20 @@ lvlLoadBtn.addEventListener("click", () => {
 
 lvlInput.addEventListener("change", () => {
     const currentlvl = lvlInput.files[0]
-    const lvlReader = new FileReader()
-    if (currentlvl) {}
+    
+    if (currentlvl) {
+        const lvlReader = new FileReader()
+        lvlReader.onload = () => {
+            const levelData = JSON.parse(lvlReader.result)
+
+            tiles.splice(0, tiles.length, ...levelData.platforms)
+
+            drawGrid()
+            drawPlatforms()
+            window.updateGamePlatforms()
+        }
+
+        lvlReader.readAsText(currentlvl)
+
+    }
 })
