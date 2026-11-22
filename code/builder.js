@@ -7,6 +7,11 @@ const gridSize = 16;
 let preview = {x: 0, y: 0, width: 0, height: gridSize};
 let startOClick = {x: 0, y: 0};
 let placeMode = document.getElementById("mode")
+let currentTool = "platform"
+placeMode.addEventListener("change", () => {
+    currentTool = placeMode.value
+    console.log(currentTool)
+})
 
 function drawGrid () {
     for (let i = 0; i < builderCanvas.width; i += gridSize) {
