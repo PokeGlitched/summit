@@ -110,3 +110,18 @@ builderCanvas.addEventListener("mouseup", () => {
 
     window.updateGamePlatforms()
 }); 
+
+const levelData = {
+    platforms: window.tiles
+}
+
+const json = JSON.stringify(levelData, null, 2)
+
+const levelFile = new Blob([json], {
+    type: "application/json"
+})
+
+const lvlSaveBtn = document.createElement("a")
+lvlSaveBtn.href = URL.createObjectURL(levelFile)
+lvlSaveBtn.download = "level.json"
+lvlSaveBtn.click()
