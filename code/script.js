@@ -48,10 +48,9 @@ fetch("levels/level1.json")
         console.log("LEVEL LOADED:", levelData)
         const loadedPlats = levelData.platforms.map(tile => new Platform(tile.x, tile.y, tile.width, tile.height))
         platforms = loadedPlats
-        window.spawnPos = {
-            "x": levelData.spawn.x,
-            "y": levelData.spawn.y
-        }
+        window.spawnPos = levelData.spawn
+        window.endingPs = levelData.end
+        window.tacticalNuke()
         player_body = new Player
         player_body.jump()
         player_body.move()

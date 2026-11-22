@@ -173,7 +173,9 @@ const lvlSaveBtn = document.getElementById("save")
 lvlSaveBtn.addEventListener("click", () => {
 
     const levelData = {
-    platforms: window.tiles
+    platforms: window.tiles,
+    spawn: window.spawnPos,
+    end: window.endingPs
     }
     const json = JSON.stringify(levelData, null, 2)
     const levelFile = new Blob([json], {
@@ -203,7 +205,9 @@ lvlInput.addEventListener("change", () => {
             const levelData = JSON.parse(lvlReader.result)
 
             tiles.splice(0, tiles.length, ...levelData.platforms)
-
+            window.spawnPos = levelData.spawn
+            window.endingPs = levelData.end
+            console.log(window.spawnPos, window.endingPs)
             builderCtx.clearRect(0, 0, builderCanvas.width, builderCanvas.height)
             drawGrid()
             drawPlatforms()
@@ -214,3 +218,10 @@ lvlInput.addEventListener("change", () => {
 
     }
 })
+
+
+window.tacticalNuke = function() {
+    builderCtx.clearRect(0, 0, builderCanvas.height, builderCanvas.width)
+    drawGrid()
+    drawPlatforms()
+}
