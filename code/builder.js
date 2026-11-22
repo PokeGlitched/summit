@@ -115,7 +115,7 @@ builderCanvas.addEventListener("mouseup", () => {
 const lvlSaveBtn = document.getElementById("save")
 
 lvlSaveBtn.addEventListener("click", () => {
-    
+
     const levelData = {
     platforms: window.tiles
     }
@@ -128,4 +128,18 @@ lvlSaveBtn.addEventListener("click", () => {
     lvlSave.href = URL.createObjectURL(levelFile)
     lvlSave.download = "level.json"
     lvlSave.click()
+})
+
+const lvlLoadBtn = document.getElementById("load")
+const lvlInput = document.getElementById("levelFile")
+
+
+lvlLoadBtn.addEventListener("click", () => {
+    lvlInput.click()
+})
+
+lvlInput.addEventListener("change", () => {
+    const currentlvl = lvlInput.files[0]
+    const lvlReader = new FileReader()
+    if (currentlvl) {}
 })
