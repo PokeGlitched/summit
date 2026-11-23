@@ -46,6 +46,28 @@ canvas {
     cursor: pointer;
 }
 
+#totalLevels {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    padding: auto;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#labelLvlInp {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    padding: auto;
+    font-size: 18px;
+    cursor: pointer;
+}
+
 #levelFile {
     display: none;
 }

@@ -7,11 +7,18 @@ inputs = {
     jump: [" ", "W", "w", "ArrowUp"], 
     left: ["a", "A", "ArrowLeft"], 
     right: ["d", "D", "ArrowRight"]
-}
+}   
 
 let player_body = null
 let levelNum = 1
 let lastTime = 0
+
+const totalLevelsInput = document.getElementById("totalLevels")
+let totalLevels = 2
+
+totalLevelsInput.addEventListener("change", () => {
+    totalLevels = Number(document.getElementById("totalLevels").value)
+})
 
 class Platform {
     
@@ -49,23 +56,41 @@ window.updateGamePlatforms = function () {
 
 function loadLevel() {
 fetch(`levels/level${levelNum}.json`)
-    .then(response => response.json())
+    .then(response => {
+    if (!response.ok) {
+        throw new Error(`Level ${levelNum} failed to load`)
+    }
+    return response.json()
+})
     .then(levelData => {
         console.log("LEVEL LOADED:", levelData)
         const loadedPlats = levelData.platforms.map(tile => new Platform(tile.x, tile.y, tile.width, tile.height))
         platforms = loadedPlats
         window.spawnPos = levelData.spawn
         window.endingPs = levelData.end
-        window.tacticalNuke()
+        
+        if (!player_body) {
         player_body = new Player
         player_body.jump()
         player_body.move()
+        } else {
+            player_body.position.x = window.spawnPos.x
+            player_body.position.y = window.spawnPos.y
+            player_body.velocity.x = 0
+            player_body.velocity.y = 0
+            player_body.movement.left = false
+            player_body.movement.right = false
+            player_body.coyote.timer = 0
+            player_body.win = false
+        }
+        
+        window.tacticalNuke()
     })
     .catch(error => {
         console.error("LOAD ERROR:", error)
     })
 }
-loadLevel()
+loadLevel()     
 
 function gameLoop(timestamp) {  
     const deltaTime = timestamp - lastTime
@@ -247,6 +272,11 @@ class Player {
                 console.log("LEVEL COMPLETE")
                 this.win = true
                 levelNum += 1
+
+                if (levelNum > totalLevels) {
+                    levelNum = 1
+                }
+                loadLevel()
             }
         }
 
