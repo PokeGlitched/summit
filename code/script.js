@@ -211,13 +211,14 @@ class Player {
 
         const beginningBottom = this.edges.bottom
         const beginningTop = this.edges.top
-        const nextBottom = this.edges.bottom + this.velocity.y
-        const nextTop = this.edges.top + this.velocity.y;
         
         this.velocity.y += this.physics.gravity
         if (this.velocity.y > this.physics.terminalVelo) {
             this.velocity.y = this.physics.terminalVelo
         }
+
+        const nextBottom = this.edges.bottom + this.velocity.y
+        const nextTop = this.edges.top + this.velocity.y;
         
         this.onFloor = false
         this.coyote.timer -= deltaTime
