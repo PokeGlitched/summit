@@ -1,13 +1,14 @@
 builderCanvas = document.getElementById("builder")
 builderCtx = builderCanvas.getContext("2d")
 
+const gridSize = 16;
 
 let clicking = false;
-const gridSize = 16;
 let preview = {x: 0, y: 0, width: 0, height: gridSize};
 let startOClick = {x: 0, y: 0};
 let placeMode = document.getElementById("mode")
 let currentTool = "platform"
+
 placeMode.addEventListener("change", () => {
     currentTool = placeMode.value
     console.log(currentTool)
@@ -20,7 +21,6 @@ function drawGrid () {
         builderCtx.lineTo(i, builderCanvas.height)
         builderCtx.stroke()
     }
-
     for (let i = 0; i < builderCanvas.height; i += gridSize) {
         builderCtx.beginPath()
         builderCtx.moveTo(0, i)
@@ -28,16 +28,13 @@ function drawGrid () {
         builderCtx.stroke()
     }
 }
-
 drawGrid()
 
 window.tiles = []
-
 window.spawnPos = {
     "x": 0,
     "y": 0
 }
-
 window.endingPs = {
     "x": 0,
     "y": 0,
@@ -51,15 +48,14 @@ builderCanvas.addEventListener("mousedown", (event) => {
     const y = event.clientY - rect.top;
     const clickX = Math.floor(x / gridSize) * gridSize;
     const clickY = Math.floor(y / gridSize) * gridSize;
-    if (currentTool === "platform") {
     
+    if (currentTool === "platform") {
     const tileIndex = tiles.findIndex(tile =>
         clickX >= tile.x &&
         clickX < tile.x + tile.width &&
         clickY >= tile.y &&
         clickY < tile.y + tile.height
-        );
-
+    )
     if (tileIndex !== -1) {
         tiles.splice(tileIndex, 1)
         builderCtx.clearRect(0, 0, builderCanvas.width, builderCanvas.height)
@@ -80,12 +76,12 @@ builderCanvas.addEventListener("mousedown", (event) => {
         height: gridSize
     }
     
-
     } else if (currentTool === "spawnPos") {
         const oldSpawnPos = {
             "x": window.spawnPos.x,
             "y": window.spawnPos.y
         }
+
         window.spawnPos.x = clickX + 4
         window.spawnPos.y = clickY + 4
         
@@ -94,6 +90,7 @@ builderCanvas.addEventListener("mousedown", (event) => {
             drawGrid()
             drawPlatforms()
         }
+
         builderCtx.fillStyle = "royalblue"
         builderCtx.fillRect(window.spawnPos.x, window.spawnPos.y, 8, 8)
     } else if (currentTool === "endingPs") {
@@ -101,14 +98,17 @@ builderCanvas.addEventListener("mousedown", (event) => {
             "x": window.endingPs.x,
             "y": window.endingPs.y
         }
+
         window.endingPs.x = clickX
         window.endingPs.y = clickY
         
         if (window.endingPs) {
             builderCtx.clearRect(oldEndPos.x, oldEndPos.y, 16, 16)
         }
+        
         builderCtx.fillStyle = "darkseagreen"
         builderCtx.fillRect(window.endingPs.x + 1, window.endingPs.y + 1, gridSize - 2, gridSize - 2)
+        
         drawGrid()
         drawPlatforms()
     }
@@ -169,7 +169,6 @@ builderCanvas.addEventListener("mouseup", () => {
 
 
 const lvlSaveBtn = document.getElementById("save")
-
 lvlSaveBtn.addEventListener("click", () => {
 
     const levelData = {
@@ -191,11 +190,9 @@ lvlSaveBtn.addEventListener("click", () => {
 const lvlLoadBtn = document.getElementById("load")
 const lvlInput = document.getElementById("levelFile")
 
-
 lvlLoadBtn.addEventListener("click", () => {
     lvlInput.click()
 })
-
 lvlInput.addEventListener("change", () => {
     const currentlvl = lvlInput.files[0]
     
