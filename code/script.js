@@ -3,9 +3,15 @@ ctx = canvas.getContext("2d")
 
 ctx.fillRect(0, 0, 320, 480)
 
+inputs = { 
+    jump: [" ", "W", "w", "ArrowUp"], 
+    left: ["a", "A", "ArrowLeft"], 
+    right: ["d", "D", "ArrowRight"]
+}
+
 let player_body = null
-inputs = {jump: [" ", "W", "w", "ArrowUp"], left: ["a", "A", "ArrowLeft"], right: ["d", "D", "ArrowRight"]}
 let levelNum = 1
+let lastTime = 0
 
 class Platform {
     
@@ -35,14 +41,14 @@ let platforms = window.tiles.map(tile =>
     new Platform(tile.x, tile.y, tile.width, tile.height)
 ) 
 
-
 window.updateGamePlatforms = function () {
     platforms = window.tiles.map(tile => 
     new Platform(tile.x, tile.y, tile.width, tile.height)
     )
 }
 
-fetch("levels/level1.json")
+function loadLevel() {
+fetch(`levels/level${levelNum}.json`)
     .then(response => response.json())
     .then(levelData => {
         console.log("LEVEL LOADED:", levelData)
@@ -54,31 +60,25 @@ fetch("levels/level1.json")
         player_body = new Player
         player_body.jump()
         player_body.move()
-        let lastTime = 0
-
-        function gameLoop(timestamp) {
-            
-            const deltaTime = timestamp - lastTime
-            lastTime = timestamp
-
-            requestAnimationFrame(gameLoop)
-
-            ctx.clearRect(0, 0, 320, 480)
-            ctx.fillStyle = 'white'
-            ctx.fillRect(0, 0, 320, 480)
-
-            player_body.update(deltaTime)
-            player_body.draw()
-            platforms.forEach(platform => platform.draw())
-        }
-        gameLoop()
     })
     .catch(error => {
         console.error("LOAD ERROR:", error)
     })
-    
+}
+loadLevel()
 
-console.log(window.tiles)
+function gameLoop(timestamp) {  
+    const deltaTime = timestamp - lastTime
+    lastTime = timestamp
+    requestAnimationFrame(gameLoop)
+    ctx.clearRect(0, 0, 320, 480)
+    ctx.fillStyle = 'white'
+    ctx.fillRect(0, 0, 320, 480)
+    player_body.update(deltaTime)
+    player_body.draw()
+    platforms.forEach(platform => platform.draw())
+}
+gameLoop()
 
 class Player {
     constructor(){
@@ -176,6 +176,7 @@ class Player {
         }
         
     update(deltaTime) {
+        if (!this.win) {
         this.edges.top = this.position.y
         this.edges.bottom = this.position.y + this.dimensions.height
         this.edges.left = this.position.x
@@ -234,29 +235,28 @@ class Player {
                 this.position.y = platform.edges.bottom;
                 }
         })
-        console.log(this.edges, window.endingPs, this.win, gridSize)
-        if (this.edges.right >= window.endingPs.x  &&
+        
+        if (this.edges.right >= window.endingPs.x &&
             this.edges.left <= window.endingPs.x + (gridSize - 2) &&
             this.edges.top <= window.endingPs.y + (gridSize - 2) &&
             this.edges.bottom >= window.endingPs.y) {
-                if (!this.win) {
-                    console.log("LEVEL COMPLETE")
-                    this.win = true
-                }
 
-        if (this.edges.bottom >= canvas.height ||
-            this.edges.right <= 0 ||
-            this.edges.left >= canvas.width
-            ) {
-                this.position.x = window.spawnPos.x
-                this.position.y = window.spawnPos.y
+            if (!this.win) {
+                console.log("LEVEL COMPLETE")
+                this.win = true
+                levelNum += 1
             }
-        this.position.x += this.velocity.x
-        this.position.y += this.velocity.y    
         }
 
+        if (this.position.y > canvas.height) {
+            this.position.x = window.spawnPos.x
+            this.position.y = window.spawnPos.y
+            this.velocity.x = 0
+            this.velocity.y = 0
+        }
 
-
-        
-}
+        this.position.x += this.velocity.x
+        this.position.y += this.velocity.y    
+        } else return
+    }       
 }
