@@ -74,8 +74,10 @@ function gameLoop(timestamp) {
     ctx.clearRect(0, 0, 320, 480)
     ctx.fillStyle = 'white'
     ctx.fillRect(0, 0, 320, 480)
-    player_body.update(deltaTime)
-    player_body.draw()
+    if (player_body) {
+        player_body.update(deltaTime)
+        player_body.draw()
+    }
     platforms.forEach(platform => platform.draw())
 }
 gameLoop()
