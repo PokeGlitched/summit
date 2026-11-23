@@ -218,7 +218,7 @@ lvlInput.addEventListener("change", () => {
 
 
 window.tacticalNuke = function() {
-    builderCtx.clearRect(0, 0, builderCanvas.height, builderCanvas.width)
+    builderCtx.clearRect(0, 0, builderCanvas.width, builderCanvas.height)
     drawGrid()
     drawPlatforms()
 }
