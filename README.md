@@ -19,6 +19,10 @@ level{NUMBER}.json, where {NUMBER} is an integer, like 1, 2, or 3.
 ## About
 This project was originally just going to be a developer tool for my game called Summit. However, the game engine ended up taking so much time that I never got to build the game. As such, I'm releaseding the dev tool so that other people can make their own levels and play around with my engine.
 
+This project was made through HTML, CSS, and JS.
+
+I might come back to the project in the future and make it a fully developed game (looking at you, phantom!)
+
 ## Controls
 WASD, Arrow Keys, Spacebar
 Not accessible to mobile (i'm pretty sure, if i checked correctly)
